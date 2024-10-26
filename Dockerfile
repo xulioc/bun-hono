@@ -3,11 +3,12 @@ FROM oven/bun:1 AS builder
 
 WORKDIR /app
 
-# Copy all files
-COPY . .
-
-# Install dependencies
+# Copy package files first for better caching
+COPY package.json bun.lockb ./
 RUN bun install --frozen-lockfile
+
+# Copy rest of the files
+COPY . .
 
 # Build the binary
 RUN bun build main.ts --compile --outfile server
