@@ -33,11 +33,23 @@ app.get('/health', (c) => {
 
 // Error handling
 app.onError((err, c) => {
-  console.error(`${err}`)
+  console.error(`[Error] ${err.message}`)
+  console.error(err.stack)
+  
+  // Don't expose internal errors in production
+  if (process.env.NODE_ENV === 'production') {
+    return c.json({
+      error: {
+        message: 'Internal Server Error',
+        id: crypto.randomUUID() // For error tracking
+      }
+    }, 500)
+  }
+
   return c.json({
     error: {
-      message: err.message || 'Internal Server Error',
-      stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+      message: err.message,
+      stack: err.stack
     }
   }, 500)
 })
