@@ -1,12 +1,10 @@
 # Build stage
-FROM oven/bun:1.1.33 AS builder
+FROM oven/bun:1 AS builder
 
 WORKDIR /app
 
-# Copy files needed for build
-COPY package.json bun.lockb ./
-COPY main.ts ./
-COPY routes ./routes
+# Copy all files
+COPY . .
 
 # Install dependencies
 RUN bun install --frozen-lockfile
