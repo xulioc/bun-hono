@@ -8,7 +8,7 @@ COPY package.json bun.lockb ./
 RUN bun install --frozen-lockfile
 
 # Copy rest of the files
-COPY . .
+COPY . ./
 
 # Build the binary
 RUN bun build main.ts --compile --outfile server
