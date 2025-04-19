@@ -8,9 +8,14 @@
     "build": "bun build main.ts --compile --outfile server"
   },
   "dependencies": {
-    "hono": "^4.6.7"
+    "better-auth": "^1.2.7",
+    "drizzle-orm": "^0.42.0",
+    "hono": "^4.7.7",
+    "pg": "^8.14.1"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "@types/pg": "^8.11.13",
+    "bun-types": "^1.2.10",
+    "drizzle-kit": "^0.31.0"
   }
 }

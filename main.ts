@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { logger } from 'hono/logger'
 import userRoutes from './routes/userRoutes'
+import { auth } from './lib/auth'
 
 const app = new Hono()
 
@@ -15,6 +16,10 @@ app.use('*', cors({
   maxAge: 3600,
   credentials: true
 }))
+
+app.on(["POST", "GET"], "/api/auth/*", (c) => {
+	return auth.handler(c.req.raw);
+});
 
 // Routes
 app.route('/users', userRoutes)
